@@ -619,6 +619,57 @@ canvas { width: 100% !important; }
   transform: translateX(-50%) translateY(0);
 }
 
+/* ===== WEEK BANNER ===== */
+.week-banner {
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  flex-wrap: wrap;
+}
+.wb-week {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: 18px;
+  background: rgba(0,0,0,0.18);
+  padding: 2px 10px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.wb-phase {
+  font-size: 13px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.wb-desc {
+  font-size: 11px;
+  opacity: 0.88;
+  flex: 1;
+}
+
+/* ===== PLAN NOTE ===== */
+.plan-note {
+  background: #fff9e6;
+  border-left: 4px solid var(--accent2);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 12px;
+  color: #7a5c00;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.plan-note-sm {
+  font-size: 11px;
+  color: #7a5c00;
+  background: #fff9e6;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
 /* ===== EXERCISE INFO BUTTON ===== */
 .exercise-right {
   display: flex;
