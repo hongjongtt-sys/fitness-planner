@@ -368,8 +368,11 @@ function getTodayPlan() {
   const { phase } = getPhase(getCurrentWeek());
   return PHASE_PLANS[phase][new Date().getDay()];
 }
-function getDayPlan(dayIdx) {
-  const { phase } = getPhase(getCurrentWeek());
+function getDayPlan(dayIdx, weekOffset) {
+  const week = weekOffset !== undefined
+    ? Math.max(1, getCurrentWeek() + weekOffset)
+    : getCurrentWeek();
+  const { phase } = getPhase(week);
   return PHASE_PLANS[phase][dayIdx];
 }
 
@@ -639,8 +642,8 @@ function renderWeekly(){
   const first=weekDates[0],last=weekDates[6];
   document.getElementById('weekLabel').textContent=`${first.getMonth()+1}/${first.getDate()} ~ ${last.getMonth()+1}/${last.getDate()}`;
   let completedCount=0;
-  weekDates.forEach(d=>{const k=dateStr(d);const plan=getDayPlan(d.getDay());if(plan.type==='rest')return;if(state.completedDays?.[k])completedCount++;});
-  const workDays=weekDates.filter(d=>getDayPlan(d.getDay()).type!=='rest').length;
+  weekDates.forEach(d=>{const k=dateStr(d);const plan=getDayPlan(d.getDay(), offset);if(plan.type==='rest')return;if(state.completedDays?.[k])completedCount++;});
+  const workDays=weekDates.filter(d=>getDayPlan(d.getDay(), offset).type!=='rest').length;
   const rate=workDays>0?Math.round(completedCount/workDays*100):0;
   document.getElementById('weeklyRateBar').style.width=rate+'%';
   document.getElementById('weeklyRateLabel').textContent=`${completedCount} / ${workDays}일 완료 (${rate}%)`;
@@ -648,7 +651,7 @@ function renderWeekly(){
   const tagMap={warm:'워밍업',cool:'쿨다운',cardio:'유산소',strength:'근력',core:'코어'};
   const typeLabel={rest:'휴식',strength:'근력',cardio:'유산소'};
   grid.innerHTML=weekDates.map((d,i)=>{
-    const dayIdx=d.getDay();const plan=getDayPlan(dayIdx);
+    const dayIdx=d.getDay();const plan=getDayPlan(dayIdx, offset);
     const k=dateStr(d);const isToday=k===todayKey;const isDone=!!state.completedDays?.[k];
     const dotClass=isDone?'done':(isToday?'today':'');
     const exList=plan.exercises.length>0?plan.exercises.map(ex=>{
