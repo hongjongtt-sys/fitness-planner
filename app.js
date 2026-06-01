@@ -3,9 +3,6 @@
    ================================================ */
 
 // ===== Firebase 설정 =====
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
-
 const firebaseConfig = {
   apiKey: "AIzaSyDzOPDH7zoEn17ycyevkf8YeTlzGDWOe1U",
   authDomain: "fitness-planner-9d1f3.firebaseapp.com",
@@ -15,9 +12,9 @@ const firebaseConfig = {
   appId: "1:646096770845:web:a2f5a32aa839362fd673f4"
 };
 
-const firebaseApp = initializeApp(firebaseConfig);
-const db = getFirestore(firebaseApp);
-const DOC_REF = doc(db, 'planner', 'main');
+const firebaseApp = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const DOC_REF = db.collection('planner').doc('main');
 
 // ===== 주차 계산 =====
 const START_DATE = '2026-05-30';
@@ -444,10 +441,10 @@ let isOnline = true;
 // ===== Firestore 동기화 =====
 async function saveToCloud() {
   try {
-    await setDoc(DOC_REF, state);
+    await DOC_REF.set(state);
     showSyncStatus('✅ 저장됨');
   } catch(e) {
-    showSyncStatus('⚠️ 오프라인 — 로컬 저장');
+    showSyncStatus('📵 오프라인 — 로컬 저장');
     saveLocal();
   }
 }
@@ -463,20 +460,17 @@ function saveState() {
 }
 
 async function loadState() {
-  // 로컬 먼저 로드 (빠른 초기 렌더)
   const raw = localStorage.getItem('fitnessPlannerState_v5');
   if (raw) { try { Object.assign(state, JSON.parse(raw)); } catch(e) {} }
-
-  // 클라우드에서 최신 데이터 로드
   try {
     showSyncStatus('🔄 동기화 중...');
-    const snap = await getDoc(DOC_REF);
-    if (snap.exists()) {
+    const snap = await DOC_REF.get();
+    if (snap.exists) {
       Object.assign(state, snap.data());
       saveLocal();
       showSyncStatus('✅ 동기화 완료');
     } else {
-      await setDoc(DOC_REF, state);
+      await DOC_REF.set(state);
       showSyncStatus('✅ 새 데이터 생성');
     }
   } catch(e) {
