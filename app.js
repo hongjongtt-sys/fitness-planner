@@ -659,10 +659,27 @@ function renderWeekly(){
       const hasDetail=!!EXERCISE_INFO[ex.name]||!!EXERCISE_INFO[infoKey];
       return`<div class="wday-exercise-mini"><span class="wday-ex-name">${ex.name}</span><div class="wday-ex-right"><span class="wday-ex-detail">${ex.detail}</span>${hasDetail?`<button class="btn-info-sm" data-name="${encodeURIComponent(ex.name)}">📋</button>`:''}</div></div>`;
     }).join(''):'<div class="wday-exercise-mini"><span>충분한 휴식을 취하세요 💤</span></div>';
-    return`<div class="weekly-day-card"><div class="wday-header" data-card="${i}"><div class="wday-name-wrap"><div class="wday-dot ${dotClass}"></div><div><div class="wday-name">${DAYS[dayIdx]}요일 ${d.getMonth()+1}/${d.getDate()} ${isToday?'🔴':''}</div><div class="wday-sub">${plan.label||'—'}</div></div></div><div style="display:flex;align-items:center;gap:8px"><span class="wday-badge ${plan.type}">${typeLabel[plan.type]||''}</span><span class="wday-arrow">▼</span></div></div><div class="wday-body" id="wday-body-${i}">${plan.note?`<div class="plan-note-sm">📌 ${plan.note}</div>`:''} ${exList}</div></div>`;
+    const todayDate=new Date();todayDate.setHours(0,0,0,0);
+    const thisDate=new Date(d);thisDate.setHours(0,0,0,0);
+    const isFuture=thisDate>todayDate;
+    let toggleBtn='';
+    if(plan.type!=='rest'&&!isFuture){
+      toggleBtn=`<button class="wday-toggle ${isDone?'done':''}" data-date="${k}">${isDone?'✅ 완료 취소':'⬜ 완료 처리'}</button>`;
+    }
+    return`<div class="weekly-day-card"><div class="wday-header" data-card="${i}"><div class="wday-name-wrap"><div class="wday-dot ${dotClass}"></div><div><div class="wday-name">${DAYS[dayIdx]}요일 ${d.getMonth()+1}/${d.getDate()} ${isToday?'🔴':''}</div><div class="wday-sub">${plan.label||'—'}</div></div></div><div style="display:flex;align-items:center;gap:8px"><span class="wday-badge ${plan.type}">${typeLabel[plan.type]||''}</span><span class="wday-arrow">▼</span></div></div><div class="wday-body" id="wday-body-${i}">${plan.note?`<div class="plan-note-sm">📌 ${plan.note}</div>`:''} ${exList}${toggleBtn}</div></div>`;
   }).join('');
   grid.querySelectorAll('.wday-header').forEach(h=>{
     h.addEventListener('click',()=>{const idx=h.dataset.card;const body=document.getElementById(`wday-body-${idx}`);body.classList.toggle('open');h.querySelector('.wday-arrow').style.transform=body.classList.contains('open')?'rotate(180deg)':'';});
+  });
+  grid.querySelectorAll('.wday-toggle').forEach(btn=>{
+    btn.addEventListener('click',(e)=>{
+      e.stopPropagation();
+      const dateKey=btn.dataset.date;
+      if(!state.completedDays)state.completedDays={};
+      if(state.completedDays[dateKey]){delete state.completedDays[dateKey];showToast('완료 취소됨');}
+      else{state.completedDays[dateKey]=true;showToast('완료 처리됨 🎉');}
+      saveState();renderWeekly();updateOverallProgress();
+    });
   });
   grid.querySelectorAll('.btn-info-sm').forEach(btn=>{
     btn.addEventListener('click',(e)=>{e.stopPropagation();openModal(decodeURIComponent(btn.dataset.name));});
