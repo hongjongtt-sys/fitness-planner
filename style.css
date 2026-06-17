@@ -851,3 +851,25 @@ canvas { width: 100% !important; }
   .today-date { font-size: 18px; }
   .weight-now { font-size: 18px; }
 }
+
+/* ===== WEEKLY DAY TOGGLE BUTTON ===== */
+.wday-toggle {
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: 2px solid var(--border);
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  font-family: 'Noto Sans KR', sans-serif;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.wday-toggle.done {
+  background: #f0fdf4;
+  border-color: var(--green);
+  color: var(--green);
+}
+.wday-toggle:active { transform: scale(0.98); }
