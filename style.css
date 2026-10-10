@@ -100,6 +100,7 @@ button { font-family: inherit; }
 .eq-ball { background: #fff3e0; color: #e65100; }
 .eq-gymball { background: #f3e5f5; color: #6a1b9a; }
 .eq-stair { background: #e8f5e9; color: #2e7d32; }
+.eq-roller { background: #fff0f5; color: #ad1457; }
 .lv-dots { font-size: 9px; color: var(--accent); letter-spacing: 1px; flex-shrink: 0; }
 
 .action-wrap { margin: 16px 0; }
@@ -124,6 +125,7 @@ button { font-family: inherit; }
 .set-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .set-grid label { font-size: 11px; color: var(--text-muted); font-weight: 700; display: flex; flex-direction: column; gap: 4px; }
 .check-row { display: flex; align-items: center; gap: 6px; font-size: 13px; margin-top: 12px; flex-wrap: wrap; }
+.check-row + .check-row { margin-top: 8px; }
 .check-row input { width: 18px; height: 18px; accent-color: var(--accent); }
 
 /* ===== WEEKLY ===== */
