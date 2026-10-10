@@ -28,7 +28,7 @@ const FOCUS = {
   recovery: { name:'회복',      emoji:'🧘', desc:'저강도 유산소 + 스트레칭', groups:[],                    target:0, color:'#7f8c8d' },
 };
 const FOCUS_KEYS = ['legs','glute','upper','back','core','full'];
-const EQ_LABEL = { body:'맨몸', box:'스텝박스', ball:'메디신볼', gymball:'짐볼', stair:'천국의 계단' };
+const EQ_LABEL = { body:'맨몸', box:'스텝박스', ball:'메디신볼', gymball:'짐볼', stair:'천국의 계단', roller:'폼롤러' };
 
 // ===== 운동 데이터 =====
 // X(id, 이름, 부위[], 장비, 레벨(1~5), 타겟[], 방법[], 팁, 주의, 유튜브 검색어, 옵션)
@@ -128,6 +128,16 @@ const EX = [
   X('c_gbback','짐볼 등 펴기',['back','core','upper','recovery'],'gymball',1,['등','가슴','복부'],['짐볼에 등을 대고 누워','팔을 머리 위로 뻗어 몸을 활처럼 늘려요'],'굽은 등이 시원하게 펴져요.','발을 넓게 벌려 균형 잡기.','짐볼 스트레칭',{kind:'cool'}),
   X('c_side','옆구리 스트레칭',['core','full','recovery'],'body',1,['옆구리'],['한 팔을 머리 위로 뻗어 반대쪽으로 기울여요','좌우 나눠서'],'골반은 고정.','없음.','옆구리 스트레칭',{kind:'cool'}),
   X('c_calf','종아리 스트레칭',['legs','full','recovery'],'box',1,['종아리'],['박스 끝에 발 앞꿈치를 걸고 뒤꿈치를 내려요','좌우 나눠서'],'천국의 계단 후에 꼭!','없음.','종아리 스트레칭',{kind:'cool'}),
+  // ---- 폼롤러 (쿨다운) ----
+  X('r_quad','폼롤러 허벅지 앞',['legs','full','recovery'],'roller',1,['허벅지 앞'],['엎드려 허벅지 앞을 폼롤러 위에 올리고 팔꿈치로 상체를 받쳐요','골반 아래부터 무릎 위까지 천천히 굴려요','아픈 지점에서 3~5초 멈추고 숨 내쉬기'],'한쪽씩 하면 압이 더 들어가요.','무릎뼈 위는 굴리지 않아요.','폼롤러 허벅지 앞',{kind:'cool'}),
+  X('r_outer','폼롤러 허벅지 바깥',['legs','glute','full','recovery'],'roller',1,['허벅지 옆'],['옆으로 누워 허벅지 바깥을 폼롤러 위에','위쪽 다리를 앞에 짚어 체중을 나눠요','골반 아래~무릎 위까지 천천히','절반에서 반대쪽'],'많이 아픈 부위라 위쪽 다리로 압을 조절해요.','통증이 날카로우면 바로 멈추고 범위를 줄여요.','폼롤러 장경인대',{kind:'cool',side:1}),
+  X('r_ham','폼롤러 햄스트링',['legs','glute','recovery'],'roller',1,['허벅지 뒤'],['앉아서 허벅지 뒤를 폼롤러 위에 올려요','손으로 바닥을 짚고 엉덩이를 들어 앞뒤로 굴려요'],'다리를 꼬아 한쪽씩 하면 더 시원해요.','무릎 뒤 오금은 피해요.','폼롤러 햄스트링',{kind:'cool'}),
+  X('r_glute','폼롤러 엉덩이',['glute','legs','recovery'],'roller',1,['엉덩이','고관절'],['폼롤러에 앉아 한쪽 발목을 반대 무릎 위에 올려요','올린 쪽 엉덩이로 기울여 작게 굴려요','절반에서 반대쪽'],'4자 스트레칭과 같은 자세라 깊은 곳까지 풀려요.','꼬리뼈 위에서 굴리지 않게.','폼롤러 엉덩이',{kind:'cool',side:1}),
+  X('r_inner','폼롤러 허벅지 안쪽',['legs','glute'],'roller',1,['허벅지 안쪽'],['엎드려 한쪽 무릎을 옆으로 굽혀 허벅지 안쪽을 폼롤러에','좌우로 천천히 굴려요','절반에서 반대쪽'],'사이드 런지·와이드 스쿼트 한 날 특히 좋아요.','무릎 안쪽 관절 위는 피해요.','폼롤러 내전근',{kind:'cool',side:1}),
+  X('r_calf','폼롤러 종아리',['legs','full','recovery'],'roller',1,['종아리'],['앉아서 종아리를 폼롤러 위에 올려요','엉덩이를 들고 발목~무릎 아래까지 굴려요','발끝을 안쪽·바깥쪽으로 돌려가며'],'천국의 계단 한 날은 꼭 해주세요.','아킬레스건 위는 세게 누르지 않아요.','폼롤러 종아리',{kind:'cool'}),
+  X('r_upback','폼롤러 등 상부',['back','upper','core','recovery'],'roller',1,['등 상부','날개뼈 주변'],['폼롤러를 날개뼈 아래에 가로로 두고 누워요','손으로 머리를 받치고 엉덩이를 들어 등 위쪽만 굴려요','중간중간 상체를 뒤로 젖혀 가슴 열기'],'굽은 등·라운드숄더에 제일 효과 좋아요.','허리(갈비뼈 아래)는 굴리지 않아요.','폼롤러 흉추',{kind:'cool'}),
+  X('r_lat','폼롤러 옆구리 등',['back','upper','recovery'],'roller',1,['광배근','겨드랑이 아래'],['옆으로 누워 겨드랑이 아래를 폼롤러 위에','팔을 머리 위로 뻗고 갈비뼈 옆까지 짧게 굴려요','절반에서 반대쪽'],'푸시업·로우 한 날 어깨가 가벼워져요.','겨드랑이 깊숙한 곳은 세게 누르지 않게.','폼롤러 광배근',{kind:'cool',side:1}),
+  X('r_chest','폼롤러 가슴 열기',['upper','back','core','recovery'],'roller',1,['가슴','어깨 앞','척추'],['폼롤러를 세로로 두고 머리~엉덩이를 올려 누워요','팔을 양옆으로 벌려 손등을 바닥 쪽으로 떨어뜨려요','편하게 호흡하며 버텨요'],'굴리지 않고 누워만 있어도 가슴이 쫙 펴져요.','어깨가 저리면 팔 높이를 낮춰요.','폼롤러 가슴 스트레칭',{kind:'cool'}),
   // ---- 유산소 ----
   X('stair','천국의 계단 (스텝밀)',['full'],'stair',1,['심폐','하체'],['손잡이는 가볍게만 잡고 상체를 세워요','발 전체로 계단을 밟아요'],'손잡이에 매달리면 운동 효과가 확 줄어요.','어지러우면 바로 속도를 낮춰요.','천국의 계단 운동법',{kind:'cardio'}),
 ];
@@ -166,7 +176,7 @@ const DEFAULT_STATE = () => ({
   sessions: [],
   levels: { legs:2, glute:2, upper:2, back:2, core:2, full:2 },
   okStreak: {},
-  profile: { height:182, start:112, goal:90, allowJump:false },
+  profile: { height:182, start:112, goal:90, allowJump:false, useRoller:true },
   prefs: { minutes:30 },
 });
 let state = DEFAULT_STATE();
@@ -318,6 +328,15 @@ function pickMain(focus, n, lvl, rng, allowHi, avoid){
 function pickList(kind, focus, k, rng){
   let pool = EX.filter(e => e.kind === kind && (e.f.includes(focus) || e.f.includes('all')));
   const out = [];
+  if (kind === 'cool') {
+    // 폼롤러: 있으면 앞쪽에 몇 개 확보(근막 이완 → 스트레칭 순서), 없으면 제외
+    const rollers = pool.filter(e => e.eq === 'roller');
+    pool = pool.filter(e => e.eq !== 'roller');
+    if (state.profile.useRoller !== false) {
+      const want = Math.min(rollers.length, focus === 'recovery' ? 4 : Math.min(2, k-1));
+      while (out.length < want) { const i = Math.floor(rng()*rollers.length); out.push(rollers[i]); rollers.splice(i,1); }
+    }
+  }
   while (out.length < k && pool.length) { const i = Math.floor(rng()*pool.length); out.push(pool[i]); pool.splice(i,1); }
   return out;
 }
@@ -655,7 +674,7 @@ function renderRecord(){
   $('etaBox').innerHTML = eta;
   renderWeightChart(tr.logs); renderCalendar();
   // 설정
-  $('setHeight').value = p.height; $('setStart').value = p.start; $('setGoal').value = p.goal; $('setJump').checked = !!p.allowJump;
+  $('setHeight').value = p.height; $('setStart').value = p.start; $('setGoal').value = p.goal; $('setJump').checked = !!p.allowJump; $('setRoller').checked = p.useRoller !== false;
   if (state.sheetsUrl) $('sheetsUrl').value = state.sheetsUrl;
 }
 function renderWeightChart(all){
@@ -698,11 +717,11 @@ function renderCalendar(){
 
 // ===== 렌더: 운동 사전 =====
 function renderDict(){
-  const filters = [['all','전체'], ...FOCUS_KEYS.map(k => [k, FOCUS[k].emoji+' '+FOCUS[k].name]), ['warm','워밍업'], ['cool','스트레칭']];
+  const filters = [['all','전체'], ...FOCUS_KEYS.map(k => [k, FOCUS[k].emoji+' '+FOCUS[k].name]), ['warm','워밍업'], ['cool','스트레칭'], ['roller','폼롤러']];
   $('dictChips').innerHTML = filters.map(([k,l]) => `<button class="chip ${ui.dictFilter===k?'active':''}" data-k="${k}">${l}</button>`).join('');
   $('dictChips').querySelectorAll('.chip').forEach(b => b.onclick = () => { ui.dictFilter = b.dataset.k; renderDict(); });
   const f = ui.dictFilter;
-  const list = EX.filter(e => f === 'all' ? true : (f === 'warm' || f === 'cool') ? e.kind === f : (!e.kind && e.f.includes(f)))
+  const list = EX.filter(e => f === 'all' ? true : f === 'roller' ? e.eq === 'roller' : (f === 'warm' || f === 'cool') ? e.kind === f : (!e.kind && e.f.includes(f)))
     .sort((a,b) => a.lv - b.lv);
   $('dictList').innerHTML = list.map(e => `
     <div class="pv-item" data-id="${e.id}">
@@ -730,9 +749,15 @@ const GUIDES = [
     <li><strong>메디신볼</strong>: 들고 하는 동작은 무게 추가, 무거우면 맨몸으로 해도 OK</li>
     <li><strong>짐볼</strong>: 바람을 너무 빵빵하게 넣지 말고, 처음엔 벽 가까이에서</li>
     <li>월볼 샷·점프 동작은 설정에서 <strong>점프 허용</strong>을 켜고 Lv.4 이상일 때만 나와요</li></ul>` },
+  { icon:'🧻', title:'폼롤러 사용법', content:`<ul>
+    <li><strong>순서</strong>: 쿨다운에서 폼롤러로 먼저 풀고 → 스트레칭으로 늘려요</li>
+    <li><strong>속도</strong>: 1초에 2~3cm 정도로 천천히, 아픈 지점에서 3~5초 멈추고 숨 내쉬기</li>
+    <li><strong>압 조절</strong>: 손·반대 다리로 체중을 나눠 받치면 덜 아파요. 처음엔 부드러운 폼롤러 추천</li>
+    <li><strong>피할 곳</strong>: 허리(요추), 무릎·팔꿈치 같은 관절과 뼈 위, 목</li>
+    <li>폼롤러가 없으면 설정에서 끄면 일반 스트레칭만 나와요</li></ul>` },
   { icon:'💡', title:'알배김(DOMS) 관리법', content:`<ul>
     <li><strong>예방</strong>: 쿨다운 스트레칭 + 운동 후 단백질 섭취</li>
-    <li><strong>완화</strong>: 가벼운 유산소, 따뜻한 샤워</li>
+    <li><strong>완화</strong>: 폼롤러로 뭉친 부위 풀기, 가벼운 유산소, 따뜻한 샤워</li>
     <li>알배김이 심하면 운동 후 평가를 😵 힘듦으로 남겨주세요. 강도가 내려가요</li></ul>` },
   { icon:'🍽️', title:'식단 가이드', content:`<ul>
     <li><strong>하루 칼로리</strong>: 1,800~2,000 kcal</li>
@@ -783,7 +808,7 @@ function initSettings(){
   $('btnSaveSettings').onclick = () => {
     const h = parseFloat($('setHeight').value), s = parseFloat($('setStart').value), g = parseFloat($('setGoal').value);
     if ([h,s,g].some(isNaN) || g >= s) { showToast('값을 확인해주세요 (목표는 시작 체중보다 작게)'); return; }
-    state.profile = { ...state.profile, height:h, start:s, goal:g, allowJump:$('setJump').checked };
+    state.profile = { ...state.profile, height:h, start:s, goal:g, allowJump:$('setJump').checked, useRoller:$('setRoller').checked };
     saveState(); renderAll(); showToast('설정 저장 완료 ✅');
   };
   $('btnSaveSheets').onclick = () => { state.sheetsUrl = $('sheetsUrl').value.trim(); saveState(); showToast('시트 URL 저장 완료 ✅'); };
